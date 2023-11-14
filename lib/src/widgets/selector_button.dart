@@ -119,26 +119,45 @@ class SelectorButton extends StatelessWidget {
   /// shows a Dialog with list [countries] if the [PhoneInputSelectorType.DIALOG] is selected
   Future<Country?> showCountrySelectorDialog(
       BuildContext inheritedContext, List<Country> countries) {
-    return showDialog(
-      context: inheritedContext,
-      barrierDismissible: true,
-      builder: (BuildContext context) => AlertDialog(
-        content: Directionality(
-          textDirection: Directionality.of(inheritedContext),
-          child: Container(
-            width: double.maxFinite,
-            child: CountrySearchListWidget(
-              countries,
-              locale,
-              searchBoxDecoration: searchBoxDecoration,
-              showFlags: selectorConfig.showFlags,
-              useEmoji: selectorConfig.useEmoji,
-              autoFocus: autoFocusSearchField,
-            ),
-          ),
-        ),
-      ),
-    );
+    return showGeneralDialog(
+        context: inheritedContext,
+        pageBuilder: (context, animation, secondaryAnimation) => Scaffold(
+            backgroundColor: Colors.transparent,
+            body: SafeArea(
+                child: Container(
+                    width: double.maxFinite,
+                    margin: selectorConfig.dialogMargin,
+                    padding: selectorConfig.dialogPadding,
+                    decoration: BoxDecoration(
+                        color: selectorConfig.dialogColor,
+                        borderRadius: BorderRadius.all(
+                            selectorConfig.dialogRadius ?? Radius.zero)),
+                    child: CountrySearchListWidget(countries, locale,
+                        searchBoxDecoration: searchBoxDecoration,
+                        showFlags: selectorConfig.showFlags,
+                        useEmoji: selectorConfig.useEmoji,
+                        autoFocus: autoFocusSearchField)))));
+    // Original
+    // return showDialog(
+    //   context: inheritedContext,
+    //   barrierDismissible: true,
+    //   builder: (BuildContext context) => AlertDialog(
+    //     content: Directionality(
+    //       textDirection: Directionality.of(inheritedContext),
+    //       child: Container(
+    //         width: double.maxFinite,
+    //         child: CountrySearchListWidget(
+    //           countries,
+    //           locale,
+    //           searchBoxDecoration: searchBoxDecoration,
+    //           showFlags: selectorConfig.showFlags,
+    //           useEmoji: selectorConfig.useEmoji,
+    //           autoFocus: autoFocusSearchField,
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   /// shows a Dialog with list [countries] if the [PhoneInputSelectorType.BOTTOM_SHEET] is selected
@@ -152,7 +171,7 @@ class SelectorButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12), topRight: Radius.circular(12))),
-      useSafeArea: selectorConfig.useBottomSheetSafeArea,
+      // useSafeArea: selectorConfig.useBottomSheetSafeArea,
       builder: (BuildContext context) {
         return Stack(children: [
           GestureDetector(

@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Demo',
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       darkTheme: darkTheme,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -51,11 +51,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 print(value);
               },
               selectorConfig: SelectorConfig(
-                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                useBottomSheetSafeArea: true,
+                selectorType: PhoneInputSelectorType.DIALOG,
+                dialogColor: Colors.white,
+                dialogMargin: const EdgeInsets.all(20),
+                dialogPadding: const EdgeInsets.all(20),
+                dialogRadius: Radius.circular(14),
+                leadingPadding: 0,
+                trailingSpace: false,
               ),
               ignoreBlank: false,
-              autoValidateMode: AutovalidateMode.disabled,
+              autoValidateMode: AutovalidateMode.onUserInteraction,
               selectorTextStyle: TextStyle(color: Colors.black),
               initialValue: number,
               textFieldController: controller,

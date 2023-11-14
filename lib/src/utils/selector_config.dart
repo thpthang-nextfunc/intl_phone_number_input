@@ -36,7 +36,17 @@ class SelectorConfig {
   /// Use safe area for selectorType=BOTTOM_SHEET
   final bool useBottomSheetSafeArea;
 
+  // Thang properties
+  final EdgeInsets? dialogPadding;
+  final EdgeInsets? dialogMargin;
+  final Color? dialogColor;
+  final Radius? dialogRadius;
+
   const SelectorConfig({
+    this.dialogPadding,
+    this.dialogMargin,
+    this.dialogColor,
+    this.dialogRadius,
     this.selectorType = PhoneInputSelectorType.DROPDOWN,
     this.showFlags = true,
     this.useEmoji = false,
