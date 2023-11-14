@@ -86,46 +86,54 @@ class InternationalPhoneNumberInput extends StatefulWidget {
 
   final List<String>? countries;
 
-  InternationalPhoneNumberInput(
-      {Key? key,
-      this.selectorConfig = const SelectorConfig(),
-      required this.onInputChanged,
-      this.onInputValidated,
-      this.onSubmit,
-      this.onFieldSubmitted,
-      this.validator,
-      this.onSaved,
-      this.fieldKey,
-      this.textFieldController,
-      this.keyboardAction,
-      this.keyboardType = TextInputType.phone,
-      this.initialValue,
-      this.hintText = 'Phone number',
-      this.errorMessage = 'Invalid phone number',
-      this.selectorButtonOnErrorPadding = 24,
-      this.spaceBetweenSelectorAndTextField = 12,
-      this.maxLength = 15,
-      this.isEnabled = true,
-      this.formatInput = true,
-      this.autoFocus = false,
-      this.autoFocusSearch = false,
-      this.autoValidateMode = AutovalidateMode.disabled,
-      this.ignoreBlank = false,
-      this.countrySelectorScrollControlled = true,
-      this.locale,
-      this.textStyle,
-      this.selectorTextStyle,
-      this.inputBorder,
-      this.inputDecoration,
-      this.searchBoxDecoration,
-      this.textAlign = TextAlign.start,
-      this.textAlignVertical = TextAlignVertical.center,
-      this.scrollPadding = const EdgeInsets.all(20.0),
-      this.focusNode,
-      this.cursorColor,
-      this.autofillHints,
-      this.countries})
-      : super(key: key);
+  // Thang
+  final Color? errorColor;
+  final Color? validColor;
+  final Color? searchFocusColor;
+
+  InternationalPhoneNumberInput({
+    Key? key,
+    required this.onInputChanged,
+    this.autofillHints,
+    this.autoFocus = false,
+    this.autoFocusSearch = false,
+    this.autoValidateMode = AutovalidateMode.disabled,
+    this.countries,
+    this.countrySelectorScrollControlled = true,
+    this.cursorColor,
+    this.errorColor,
+    this.errorMessage = 'Invalid phone number',
+    this.fieldKey,
+    this.focusNode,
+    this.formatInput = true,
+    this.hintText = 'Phone number',
+    this.ignoreBlank = false,
+    this.initialValue,
+    this.inputBorder,
+    this.inputDecoration,
+    this.isEnabled = true,
+    this.keyboardAction,
+    this.keyboardType = TextInputType.phone,
+    this.locale,
+    this.maxLength = 15,
+    this.onFieldSubmitted,
+    this.onInputValidated,
+    this.onSaved,
+    this.onSubmit,
+    this.scrollPadding = const EdgeInsets.all(20.0),
+    this.searchBoxDecoration,
+    this.searchFocusColor,
+    this.selectorButtonOnErrorPadding = 24,
+    this.selectorConfig = const SelectorConfig(),
+    this.selectorTextStyle,
+    this.spaceBetweenSelectorAndTextField = 12,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical = TextAlignVertical.center,
+    this.textFieldController,
+    this.textStyle,
+    this.validator,
+    this.validColor,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _InputWidgetState();
@@ -286,9 +294,13 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
   InputDecoration getInputDecoration(InputDecoration? decoration) {
     InputDecoration value = decoration ??
         InputDecoration(
-          border: widget.inputBorder ?? UnderlineInputBorder(),
-          hintText: widget.hintText,
-        );
+            border: widget.inputBorder ?? UnderlineInputBorder(),
+            hintText: widget.hintText,
+            // errorBorder: OutlineInputBorder(
+            //     borderSide: BorderSide(color: Colors.black, width: 2.0)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: widget.validColor ?? Colors.green, width: 2.0)));
 
     if (widget.selectorConfig.setSelectorButtonAsPrefixIcon) {
       return value.copyWith(
@@ -303,6 +315,7 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
         isEnabled: widget.isEnabled,
         autoFocusSearchField: widget.autoFocusSearch,
         isScrollControlled: widget.countrySelectorScrollControlled,
+        searchFocusColor: widget.searchFocusColor,
       ));
     }
 
@@ -410,6 +423,7 @@ class _InputWidgetView
                   isEnabled: widget.isEnabled,
                   autoFocusSearchField: widget.autoFocusSearch,
                   isScrollControlled: widget.countrySelectorScrollControlled,
+                  searchFocusColor: widget.searchFocusColor,
                 ),
                 SizedBox(
                   height: state.selectorButtonBottomPadding,

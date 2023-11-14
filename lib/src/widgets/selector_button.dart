@@ -17,6 +17,7 @@ class SelectorButton extends StatelessWidget {
   final String? locale;
   final bool isEnabled;
   final bool isScrollControlled;
+  final Color? searchFocusColor;
 
   final ValueChanged<Country?> onCountryChanged;
 
@@ -32,6 +33,7 @@ class SelectorButton extends StatelessWidget {
     required this.onCountryChanged,
     required this.isEnabled,
     required this.isScrollControlled,
+    this.searchFocusColor,
   }) : super(key: key);
 
   @override
@@ -132,11 +134,15 @@ class SelectorButton extends StatelessWidget {
                         color: selectorConfig.dialogColor,
                         borderRadius: BorderRadius.all(
                             selectorConfig.dialogRadius ?? Radius.zero)),
-                    child: CountrySearchListWidget(countries, locale,
-                        searchBoxDecoration: searchBoxDecoration,
-                        showFlags: selectorConfig.showFlags,
-                        useEmoji: selectorConfig.useEmoji,
-                        autoFocus: autoFocusSearchField)))));
+                    child: CountrySearchListWidget(
+                      countries,
+                      locale,
+                      searchBoxDecoration: searchBoxDecoration,
+                      showFlags: selectorConfig.showFlags,
+                      useEmoji: selectorConfig.useEmoji,
+                      autoFocus: autoFocusSearchField,
+                      searchFocusColor: searchFocusColor,
+                    )))));
     // Original
     // return showDialog(
     //   context: inheritedContext,
@@ -199,6 +205,7 @@ class SelectorButton extends StatelessWidget {
                       locale,
                       searchBoxDecoration: searchBoxDecoration,
                       scrollController: controller,
+                      searchFocusColor: searchFocusColor,
                       showFlags: selectorConfig.showFlags,
                       useEmoji: selectorConfig.useEmoji,
                       autoFocus: autoFocusSearchField,

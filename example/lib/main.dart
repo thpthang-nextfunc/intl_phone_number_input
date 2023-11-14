@@ -50,6 +50,20 @@ class _MyHomePageState extends State<MyHomePage> {
               onInputValidated: (bool value) {
                 print(value);
               },
+              searchFocusColor: Colors.orange,
+              // errorColor: Colors.black,
+              // validColor: Colors.orange,
+              // searchBoxDecoration: InputDecoration(
+              //     labelText: 'Search by country name or dial code',
+              //     hintText: 'aaa',
+              //     border: UnderlineInputBorder(
+              //         borderSide: BorderSide(color: Colors.red)),
+              //     enabledBorder: UnderlineInputBorder(
+              //         borderSide: BorderSide(color: Colors.red)),
+              //     focusedBorder: UnderlineInputBorder(
+              //         borderSide: BorderSide(color: Colors.red)),
+              //     hintStyle: TextStyle(color: Colors.red),
+              //     labelStyle: TextStyle(color: Colors.green)),
               selectorConfig: SelectorConfig(
                 selectorType: PhoneInputSelectorType.DIALOG,
                 dialogColor: Colors.white,

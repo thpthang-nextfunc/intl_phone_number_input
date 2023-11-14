@@ -12,6 +12,7 @@ class CountrySearchListWidget extends StatefulWidget {
   final bool autoFocus;
   final bool? showFlags;
   final bool? useEmoji;
+  final Color? searchFocusColor;
 
   CountrySearchListWidget(
     this.countries,
@@ -21,6 +22,7 @@ class CountrySearchListWidget extends StatefulWidget {
     this.showFlags,
     this.useEmoji,
     this.autoFocus = false,
+    this.searchFocusColor,
   });
 
   @override
@@ -34,6 +36,7 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
 
   @override
   void initState() {
+    print('\n\n\n===> ${widget.searchFocusColor}');
     final String value = _searchController.text.trim();
     filteredCountries = Utils.filterCountries(
       countries: widget.countries,
@@ -51,9 +54,24 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
 
   /// Returns [InputDecoration] of the search box
   InputDecoration getSearchBoxDecoration() {
-    return widget.searchBoxDecoration ??
-        InputDecoration(labelText: 'Search by country name or dial code');
+    return widget.searchFocusColor != null
+        ? InputDecoration(
+            // labelText: 'Search by country name or dial code',
+            hintText: 'Search by country name or dial code',
+            focusedBorder: UnderlineInputBorder(
+                borderSide:
+                    BorderSide(color: widget.searchFocusColor!, width: 2)))
+        : InputDecoration();
+    // return widget.searchBoxDecoration ??
+    //     InputDecoration(
+    //         // labelText: 'Search by country name or dial code',
+    //         hintText: 'Search by country name or dial code',
+    //         focusedBorder: UnderlineInputBorder(
+    //             borderSide: BorderSide(
+    //                 color: widget.searchFocusColor ?? Colors.green, width: 2)));
   }
+
+  FocusNode myFocusNode = new FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +81,7 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: TextFormField(
+            focusNode: myFocusNode,
             key: Key(TestHelper.CountrySearchInputKeyValue),
             decoration: getSearchBoxDecoration(),
             controller: _searchController,
